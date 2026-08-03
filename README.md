@@ -1,0 +1,144 @@
+# 🛡️ Enterprise SIEM & Real-Time File Integrity Monitoring (FIM) Lab with Wazuh
+
+[![Wazuh](https://img.shields.io/badge/SIEM-Wazuh%20v4.x-0055FF?style=for-the-badge&logo=wazuh&logoColor=white)](https://wazuh.com)
+[![Ubuntu](https://img.shields.io/badge/OS-Ubuntu%20Linux-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://ubuntu.com)
+[![Windows](https://img.shields.io/badge/OS-Windows%2010%2F11-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://microsoft.com)
+[![VirtualBox](https://img.shields.io/badge/Hypervisor-Oracle%20VirtualBox-183A61?style=for-the-badge&logo=virtualbox&logoColor=white)](https://virtualbox.org)
+
+## 📌 Executive Summary
+This project documents the deployment of an enterprise-grade **Wazuh Security Information and Event Management (SIEM)** solution in a virtualized lab environment. 
+
+The lab features a **Wazuh Central Manager & Indexer** deployed on an Ubuntu Linux server, paired with a **Wazuh Security Agent** on a Windows endpoint. In addition to successful deployment, this project highlights real-world system recovery, troubleshooting package manager locks (`dpkg`/`apt`), and configuring **Real-Time File Integrity Monitoring (FIM)** to detect unauthorized file creations and modifications instantly.
+
+---
+
+## 🛠️ Lab Architecture & Network Topology
+
+```
+                       +---------------------------------------+
+                       |          Oracle VirtualBox            |
+                       |       Bridged Network Adapter         |
+                       +-------------------+-------------------+
+                                           |
+                   +-----------------------+-----------------------+
+                   |                                               |
+                   v                                               v
+  +---------------------------------+             +---------------------------------+
+  |      Wazuh Manager VM           |             |      Windows Endpoint VM        |
+  |  OS: Ubuntu Server 22.04 LTS    |             |  OS: Windows 10 / 11            |
+  |  IP: 192.168.1.167              |             |  IP: 192.168.1.168              |
+  |  Role: SIEM Indexer & Dashboard |             |  Role: Monitored Security Agent |
+  +----------------+----------------+             +----------------+----------------+
+                   ^                                               |
+                   |=== Encrypted Telemetry / FIM Alert Logs ======|
+                   |               (Port 1514 / 1515)              |
+```
+
+| Component | Operating System | IP Address | Hostname / Role |
+| :--- | :--- | :--- | :--- |
+| **SIEM Manager** | Ubuntu 22.04 LTS | `192.168.1.167` | `wazuh-manager` (Indexer, Server & Dashboard) |
+| **Endpoint Agent** | Windows 10/11 | `192.168.1.168` | `win-endpoint-01` (Monitored Host) |
+| **Hypervisor** | Host Machine | Bridged Subnet | Oracle VirtualBox |
+
+---
+
+## 🚀 Step-by-Step Implementation Guide
+
+### 1. Environment & Network Configuration
+1. Created two virtual virtual machines in Oracle VirtualBox using standard ISO images for Ubuntu Server and Windows.
+2. Set network interfaces to **Bridged Adapter** mode to ensure direct IP reachability between hosts on the subnet (`192.168.1.0/24`).
+3. Installed core Linux networking and utility tools (`curl`, `apt-transport-https`, `gnupg`, `net-tools`).
+
+---
+
+### 🧠 2. Real-World Engineering & Troubleshooting (Wazuh Recovery)
+
+> [!NOTE]
+> During initial deployment, the Wazuh Manager service crashed due to resource constraints and broken configuration scripts. The recovery steps below demonstrate technical problem-solving and Linux package management repair.
+
+#### The Challenge Encountered:
+- **Resource Exhaustion:** Wazuh Manager failed to start initially due to insufficient RAM allocations on the Ubuntu VM.
+- **Binary Path Loss:** Accidental script errors broke `/var/ossec/bin/wazuh-control`, resulting in `"command not found"`.
+- **Package Manager Lockup:** A concatenated command syntax error (`sudo apt-get remove ... sudo apt-get clean`) caused `dpkg` to crash and lock `/var/lib/dpkg/lock-frontend`.
+- **Repository GPG Disconnection:** Force-clearing repositories removed official Wazuh GPG keys.
+
+#### Technical Resolution Procedure:
+```bash
+# 1. Force-release locked package manager locks
+sudo rm /var/lib/dpkg/lock-frontend
+sudo rm /var/lib/apt/lists/lock
+sudo dpkg --configure -a
+
+# 2. Re-import Official Wazuh GPG Key and Repository
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | sudo gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | sudo tee /etc/apt/sources.list.d/wazuh.list
+
+# 3. Perform clean update & rebuild Wazuh Indexer and Dashboard
+sudo apt-get update
+sudo apt-get install --reinstall wazuh-manager wazuh-dashboard -y
+sudo systemctl restart wazuh-manager
+```
+*Outcome:* Wazuh Manager & Web Dashboard fully recovered and restored to operational health.
+
+---
+
+### 3. Agent Deployment & Registration
+1. Downloaded and executed the **Wazuh Agent installer** on the Windows Endpoint (`192.168.1.168`).
+2. Configured agent authentication connecting to the Manager IP (`192.168.1.167`) via Port 1515.
+3. Verified successful registration in the Wazuh Dashboard under **Active Agents**.
+
+---
+
+### 4. Configuring Real-Time File Integrity Monitoring (FIM)
+
+To monitor critical directories on the Windows Endpoint for unauthorized file tampering, the syscheck configuration file (`ossec.conf`) was updated.
+
+#### Configuration Snippet (`C:\Program Files (x86)\ossec-agent\ossec.conf`):
+Opened `ossec.conf` as Administrator in Notepad and added the target lab monitoring path under `<syscheck>`:
+
+```xml
+<syscheck>
+  <!-- Real-Time File Integrity Monitoring for Lab Directory -->
+  <directories real_time="yes" check_all="yes">C:\Users\User\Desktop\FIM_Test_Directory</directories>
+</syscheck>
+```
+
+Restarted the Wazuh Agent service to load updated configuration:
+```cmd
+net stop wazuh
+net start wazuh
+```
+
+---
+
+## 🧪 Verification & Alert Testing
+
+1. **Test Execution:** Navigated to `C:\Users\User\Desktop\FIM_Test_Directory` on the Windows host and created a test document (`unauthorized_change_test.txt`) containing sensitive text.
+2. **Detection Result:** Wazuh's `syscheck` engine detected the file creation instantly in real-time.
+3. **SIEM Alert Inspection:** Opened the Wazuh Dashboard $\rightarrow$ Security Events $\rightarrow$ FIM tab to view the generated alert logs.
+
+### Alert Metadata Captured:
+- **Rule ID:** `554` (File added to system) / `550` (File modified)
+- **Agent Name:** `win-endpoint-01` (`192.168.1.168`)
+- **File Path:** `C:\Users\User\Desktop\FIM_Test_Directory\unauthorized_change_test.txt`
+- **Integrity Attributes:** Recorded file hash (MD5/SHA256), timestamp, permissions, and owner user ID.
+
+---
+
+## 📸 Screenshots & Evidence
+
+> *Tip: Upload your actual lab screenshots into an `images/` directory in this repo and update the paths below!*
+
+| Stage | Visual Evidence |
+| :--- | :--- |
+| **Wazuh Agent Connection** | `![Agent Connected](./images/01_wazuh_agent_connected.png)` |
+| **FIM Configuration in `ossec.conf`** | `![FIM Config](./images/02_ossec_conf_fim.png)` |
+| **Real-Time FIM Alert in Dashboard** | `![SIEM Alert](./images/03_fim_realtime_alert.png)` |
+
+---
+
+## 💡 Key Takeaways & Lessons Learned
+
+1. **Troubleshooting Resilience:** Understanding how Linux package managers (`apt`/`dpkg`) handle locks and repository keys is essential when resolving deployment failures in production SIEM infrastructure.
+2. **Proactive File Integrity Monitoring:** Real-Time FIM is vital for compliance (NIST CSF / PCI-DSS) to catch ransomware file encryption, web shell drops, and unauthorized privilege escalation.
+3. **Log Correlation Power:** Centralizing agent logs into a single SIEM dashboard dramatically reduces Incident Response (IR) time compared to manual Windows Event Viewer inspection.
