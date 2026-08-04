@@ -131,12 +131,18 @@ Below is the complete visual documentation of the lab environment, from endpoint
 
 | Phase / Verification | Description | Visual Evidence |
 | :--- | :--- | :--- |
-| **1. Endpoint Security & Inventory Summary** | Wazuh Web Dashboard showing active agent `seim-windows` (`002`), IP `192.168.1.168`, Windows 11 system inventory, and PCI-DSS compliance widgets. | `![Wazuh Endpoint Security Overview](./images/01_wazuh_endpoint_security_overview.png)` |
-| **2. Windows Agent Connection & IP Config** | Windows CMD `ipconfig` output (`192.168.1.168`) paired with Wazuh Agent Manager GUI in `Running` status connected to Manager IP `192.168.1.167`. | `![Windows Agent Connection](./images/02_windows_agent_connection.png)` |
-| **3. Manager Service Verification (Linux)** | Ubuntu Server terminal output confirming `systemctl status wazuh-manager` in `Active: active (running)` state with sub-daemons (`syscheckd`, `analysisd`, `remoted`). | `![Ubuntu Wazuh Manager Status](./images/03_ubuntu_wazuh_manager_status.png)` |
-| **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | `![FIM Config in ossec.conf](./images/04_ossec_conf_fim_config.png)` |
-| **5. Real-Time FIM Events Overview** | Wazuh Dashboard table displaying live `File added` (Level 5) and `File deleted` (Level 7) alerts generated inside `C:\Users\vboxuser\Downloads\WAZUH-TEST`. | `![Real-Time FIM Events Overview](./images/05_wazuh_fim_events_overview.png)` |
-| **6. Detailed Alert Log Breakdown** | Deep-dive Document Details modal inspecting `syscheck_deleted` rule ID, exact file path, `agent.ip: 192.168.1.168`, and `Mode: realtime` payload. | `![FIM Alert Document Details](./images/06_wazuh_fim_document_details.png)` |
+| **1. Endpoint Security & Inventory Summary** | Wazuh Web Dashboard showing active agent `seim-windows` (`002`), IP `192.168.1.168`, Windows 11 system inventory, and PCI-DSS compliance widgets. | `![Wazuh Endpoint Security Overview]<img width="2372" height="1300" alt="images:01_wazuh_endpoint_security_overview" src="https://github.com/user-attachments/assets/54ebd665-2364-4511-b37e-1d31892d65fe" />
+` |
+| **2. Windows Agent Connection & IP Config** | Windows CMD `ipconfig` output (`192.168.1.168`) paired with Wazuh Agent Manager GUI in `Running` status connected to Manager IP `192.168.1.167`. | `![Windows Agent Connection]<img width="1822" height="1074" alt="images:02_windows_agent_connection" src="https://github.com/user-attachments/assets/3444abc2-d950-4c21-8964-b6ed7cc0471d" />
+` |
+| **3. Manager Service Verification (Linux)** | Ubuntu Server terminal output confirming `systemctl status wazuh-manager` in `Active: active (running)` state with sub-daemons (`syscheckd`, `analysisd`, `remoted`). | `![Ubuntu Wazuh Manager Status]<img width="2082" height="1188" alt="images:03_ubuntu_wazuh_manager_status" src="https://github.com/user-attachments/assets/16f14d5b-5335-41e3-8fbb-9841880aac53" />
+` |
+| **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | `![FIM Config in ossec.conf]<img width="1862" height="1308" alt="images:04_ossec_conf_fim_config" src="https://github.com/user-attachments/assets/87ac76e6-eb88-4133-8380-9e9dc7d30273" />
+` |
+| **5. Real-Time FIM Events Overview** | Wazuh Dashboard table displaying live `File added` (Level 5) and `File deleted` (Level 7) alerts generated inside `C:\Users\vboxuser\Downloads\WAZUH-TEST`. | `![Real-Time FIM Events Overview]<img width="2092" height="1148" alt="images:05_wazuh_fim_events_overview" src="https://github.com/user-attachments/assets/8f2d40a8-e8c1-47eb-8722-b5f397251cac" />
+` |
+| **6. Detailed Alert Log Breakdown** | Deep-dive Document Details modal inspecting `syscheck_deleted` rule ID, exact file path, `agent.ip: 192.168.1.168`, and `Mode: realtime` payload. | `![FIM Alert Document Details]<img width="1054" height="1008" alt="images:06_wazuh_fim_document_details" src="https://github.com/user-attachments/assets/acbbe332-bd27-4ee3-8919-98532cbc6d3c" />
+` |
 | **7. SIEM Dashboard Health Check** | Wazuh Web UI confirming successful API connection, index pattern validation, and cluster statistics checks. | `![Wazuh Dashboard Health Check]<img width="772" height="486" alt="images:07_wazuh_dashboard_healthcheck" src="https://github.com/user-attachments/assets/a655a1d5-8db7-4b38-9ebf-ed3a85aa9210" />
 ` |
 
