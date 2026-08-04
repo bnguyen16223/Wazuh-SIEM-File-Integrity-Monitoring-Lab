@@ -127,13 +127,10 @@ net start wazuh
 
 ## 📸 Screenshots & Evidence
 
-> *Tip: Upload your actual lab screenshots into an `images/` directory in this repo and update the paths below!*
-
-| Stage | Visual Evidence |
-| :--- | :--- |
-| **Wazuh Agent Connection** | `![Agent Connected](./images/01_wazuh_agent_connected.png)` |
-| **FIM Configuration in `ossec.conf`** | `![FIM Config](./images/02_ossec_conf_fim.png)` |
-| **Real-Time FIM Alert in Dashboard** | `![SIEM Alert](./images/03_fim_realtime_alert.png)` |
+| Stage / Verification | Description | Visual Evidence |
+| :--- | :--- | :--- |
+| **Real-Time FIM Events Overview** | Main Wazuh FIM Dashboard table showing active telemetry from agent `seim-windows` (`192.168.1.168`), capturing `File added` and `File deleted` events in `c:\users\vboxuser\downloads\wazuh-test`. | `![Real-Time FIM Dashboard Overview](./images/01_wazuh_fim_events_overview.png)` |
+| **Detailed Alert Log Breakdown** | Deep-dive Document Details modal displaying exact alert metadata, `rule.description: File deleted.`, `decoder.name: syscheck_deleted`, and `Mode: realtime` execution. | `![FIM Alert Document Details](./images/02_wazuh_fim_document_details.png)` |
 
 ---
 
