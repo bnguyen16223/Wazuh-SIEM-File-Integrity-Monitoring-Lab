@@ -137,13 +137,13 @@ Below is the complete visual documentation of the lab environment, from endpoint
 ` |
 | **3. Manager Service Verification (Linux)** | Ubuntu Server terminal output confirming `systemctl status wazuh-manager` in `Active: active (running)` state with sub-daemons (`syscheckd`, `analysisd`, `remoted`). | `![Ubuntu Wazuh Manager Status]<img width="2082" height="1188" alt="images:03_ubuntu_wazuh_manager_status" src="https://github.com/user-attachments/assets/16f14d5b-5335-41e3-8fbb-9841880aac53" />
 ` |
-| **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | `![FIM Config in ossec.conf]<img width="1862" height="1308" alt="images:04_ossec_conf_fim_config" src="https://github.com/user-attachments/assets/87ac76e6-eb88-4133-8380-9e9dc7d30273" />
+| **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | <img width="1862" height="1308" alt="images:04_ossec_conf_fim_config" src="https://github.com/user-attachments/assets/87ac76e6-eb88-4133-8380-9e9dc7d30273" />
 ` |
-| **5. Real-Time FIM Events Overview** | Wazuh Dashboard table displaying live `File added` (Level 5) and `File deleted` (Level 7) alerts generated inside `C:\Users\vboxuser\Downloads\WAZUH-TEST`. | `![Real-Time FIM Events Overview]<img width="2092" height="1148" alt="images:05_wazuh_fim_events_overview" src="https://github.com/user-attachments/assets/8f2d40a8-e8c1-47eb-8722-b5f397251cac" />
+| **5. Real-Time FIM Events Overview** | Wazuh Dashboard table displaying live `File added` (Level 5) and `File deleted` (Level 7) alerts generated inside `C:\Users\vboxuser\Downloads\WAZUH-TEST`. | <img width="2092" height="1148" alt="images:05_wazuh_fim_events_overview" src="https://github.com/user-attachments/assets/8f2d40a8-e8c1-47eb-8722-b5f397251cac" />
 ` |
-| **6. Detailed Alert Log Breakdown** | Deep-dive Document Details modal inspecting `syscheck_deleted` rule ID, exact file path, `agent.ip: 192.168.1.168`, and `Mode: realtime` payload. | `![FIM Alert Document Details]<img width="1054" height="1008" alt="images:06_wazuh_fim_document_details" src="https://github.com/user-attachments/assets/acbbe332-bd27-4ee3-8919-98532cbc6d3c" />
+| **6. Detailed Alert Log Breakdown** | Deep-dive Document Details modal inspecting `syscheck_deleted` rule ID, exact file path, `agent.ip: 192.168.1.168`, and `Mode: realtime` payload. | <img width="1054" height="1008" alt="images:06_wazuh_fim_document_details" src="https://github.com/user-attachments/assets/acbbe332-bd27-4ee3-8919-98532cbc6d3c" />
 ` |
-| **7. SIEM Dashboard Health Check** | Wazuh Web UI confirming successful API connection, index pattern validation, and cluster statistics checks. | `![Wazuh Dashboard Health Check]<img width="772" height="486" alt="images:07_wazuh_dashboard_healthcheck" src="https://github.com/user-attachments/assets/a655a1d5-8db7-4b38-9ebf-ed3a85aa9210" />
+| **7. SIEM Dashboard Health Check** | Wazuh Web UI confirming successful API connection, index pattern validation, and cluster statistics checks. | <img width="772" height="486" alt="images:07_wazuh_dashboard_healthcheck" src="https://github.com/user-attachments/assets/a655a1d5-8db7-4b38-9ebf-ed3a85aa9210" />
 ` |
 
 ---
