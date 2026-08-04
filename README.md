@@ -146,4 +146,3 @@ Below is the complete visual documentation of the lab environment, from endpoint
 1. **Troubleshooting Resilience:** Understanding how Linux package managers (`apt`/`dpkg`) handle locks and repository keys is essential when resolving deployment failures in production SIEM infrastructure.
 2. **Proactive File Integrity Monitoring:** Real-Time FIM is vital for compliance (NIST CSF / PCI-DSS) to catch ransomware file encryption, web shell drops, and unauthorized privilege escalation.
 3. **Log Correlation Power:** Centralizing agent logs into a single SIEM dashboard dramatically reduces Incident Response (IR) time compared to manual Windows Event Viewer inspection.
-
