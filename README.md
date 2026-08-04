@@ -131,11 +131,11 @@ Below is the complete visual documentation of the lab environment, from endpoint
 
 | Phase / Verification | Description | Visual Evidence |
 | :--- | :--- | :--- |
-| **1. Endpoint Security & Inventory Summary** | Wazuh Web Dashboard showing active agent `seim-windows` (`002`), IP `192.168.1.168`, Windows 11 system inventory, and PCI-DSS compliance widgets. | `![Wazuh Endpoint Security Overview]<img width="2372" height="1300" alt="images:01_wazuh_endpoint_security_overview" src="https://github.com/user-attachments/assets/54ebd665-2364-4511-b37e-1d31892d65fe" />
+| **1. Endpoint Security & Inventory Summary** | Wazuh Web Dashboard showing active agent `seim-windows` (`002`), IP `192.168.1.168`, Windows 11 system inventory, and PCI-DSS compliance widgets. | <img width="2372" height="1300" alt="images:01_wazuh_endpoint_security_overview" src="https://github.com/user-attachments/assets/54ebd665-2364-4511-b37e-1d31892d65fe" />
 ` |
-| **2. Windows Agent Connection & IP Config** | Windows CMD `ipconfig` output (`192.168.1.168`) paired with Wazuh Agent Manager GUI in `Running` status connected to Manager IP `192.168.1.167`. | `![Windows Agent Connection]<img width="1822" height="1074" alt="images:02_windows_agent_connection" src="https://github.com/user-attachments/assets/3444abc2-d950-4c21-8964-b6ed7cc0471d" />
+| **2. Windows Agent Connection & IP Config** | Windows CMD `ipconfig` output (`192.168.1.168`) paired with Wazuh Agent Manager GUI in `Running` status connected to Manager IP `192.168.1.167`. | <img width="1822" height="1074" alt="images:02_windows_agent_connection" src="https://github.com/user-attachments/assets/3444abc2-d950-4c21-8964-b6ed7cc0471d" />
 ` |
-| **3. Manager Service Verification (Linux)** | Ubuntu Server terminal output confirming `systemctl status wazuh-manager` in `Active: active (running)` state with sub-daemons (`syscheckd`, `analysisd`, `remoted`). | `![Ubuntu Wazuh Manager Status]<img width="2082" height="1188" alt="images:03_ubuntu_wazuh_manager_status" src="https://github.com/user-attachments/assets/16f14d5b-5335-41e3-8fbb-9841880aac53" />
+| **3. Manager Service Verification (Linux)** | Ubuntu Server terminal output confirming `systemctl status wazuh-manager` in `Active: active (running)` state with sub-daemons (`syscheckd`, `analysisd`, `remoted`). | <img width="2082" height="1188" alt="images:03_ubuntu_wazuh_manager_status" src="https://github.com/user-attachments/assets/16f14d5b-5335-41e3-8fbb-9841880aac53" />
 ` |
 | **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | <img width="1862" height="1308" alt="images:04_ossec_conf_fim_config" src="https://github.com/user-attachments/assets/87ac76e6-eb88-4133-8380-9e9dc7d30273" />
 ` |
