@@ -137,7 +137,7 @@ Below is the complete visual documentation of the lab environment, from endpoint
 | **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | `![FIM Config in ossec.conf](./images/04_ossec_conf_fim_config.png)` |
 | **5. Real-Time FIM Events Overview** | Wazuh Dashboard table displaying live `File added` (Level 5) and `File deleted` (Level 7) alerts generated inside `C:\Users\vboxuser\Downloads\WAZUH-TEST`. | `![Real-Time FIM Events Overview](./images/05_wazuh_fim_events_overview.png)` |
 | **6. Detailed Alert Log Breakdown** | Deep-dive Document Details modal inspecting `syscheck_deleted` rule ID, exact file path, `agent.ip: 192.168.1.168`, and `Mode: realtime` payload. | `![FIM Alert Document Details](./images/06_wazuh_fim_document_details.png)` |
-| **7. SIEM Dashboard Health Check** | Wazuh Web UI confirming successful API connection, index pattern validation, and cluster statistics checks. | `![Wazuh Dashboard Health Check] ./images/07_wazuh_dashboard_healthcheck.png` |
+| **7. SIEM Dashboard Health Check** | Wazuh Web UI confirming successful API connection, index pattern validation, and cluster statistics checks. | `![Wazuh Dashboard Health Check] images/07_wazuh_dashboard_healthcheck.png` |
 
 ---
 
