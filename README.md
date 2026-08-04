@@ -127,10 +127,17 @@ net start wazuh
 
 ## 📸 Screenshots & Evidence
 
-| Stage / Verification | Description | Visual Evidence |
+Below is the complete visual documentation of the lab environment, from endpoint pairing and service verification to real-time File Integrity Monitoring (FIM) alerts:
+
+| Phase / Verification | Description | Visual Evidence |
 | :--- | :--- | :--- |
-| **Real-Time FIM Events Overview** | Main Wazuh FIM Dashboard table showing active telemetry from agent `seim-windows` (`192.168.1.168`), capturing `File added` and `File deleted` events in `c:\users\vboxuser\downloads\wazuh-test`. | `![Real-Time FIM Dashboard Overview](./images/01_wazuh_fim_events_overview.png)` |
-| **Detailed Alert Log Breakdown** | Deep-dive Document Details modal displaying exact alert metadata, `rule.description: File deleted.`, `decoder.name: syscheck_deleted`, and `Mode: realtime` execution. | `![FIM Alert Document Details](./images/02_wazuh_fim_document_details.png)` |
+| **1. Endpoint Security & Inventory Summary** | Wazuh Web Dashboard showing active agent `seim-windows` (`002`), IP `192.168.1.168`, Windows 11 system inventory, and PCI-DSS compliance widgets. | `![Wazuh Endpoint Security Overview](./images/01_wazuh_endpoint_security_overview.png)` |
+| **2. Windows Agent Connection & IP Config** | Windows CMD `ipconfig` output (`192.168.1.168`) paired with Wazuh Agent Manager GUI in `Running` status connected to Manager IP `192.168.1.167`. | `![Windows Agent Connection](./images/02_windows_agent_connection.png)` |
+| **3. Manager Service Verification (Linux)** | Ubuntu Server terminal output confirming `systemctl status wazuh-manager` in `Active: active (running)` state with sub-daemons (`syscheckd`, `analysisd`, `remoted`). | `![Ubuntu Wazuh Manager Status](./images/03_ubuntu_wazuh_manager_status.png)` |
+| **4. FIM Configuration in `ossec.conf`** | Notepad Administrator editing `ossec.conf`, configuring real-time monitoring: `<directories realtime="yes">C:\Users\vboxuser\Downloads\WAZUH-TEST</directories>`. | `![FIM Config in ossec.conf](./images/04_ossec_conf_fim_config.png)` |
+| **5. Real-Time FIM Events Overview** | Wazuh Dashboard table displaying live `File added` (Level 5) and `File deleted` (Level 7) alerts generated inside `C:\Users\vboxuser\Downloads\WAZUH-TEST`. | `![Real-Time FIM Events Overview](./images/05_wazuh_fim_events_overview.png)` |
+| **6. Detailed Alert Log Breakdown** | Deep-dive Document Details modal inspecting `syscheck_deleted` rule ID, exact file path, `agent.ip: 192.168.1.168`, and `Mode: realtime` payload. | `![FIM Alert Document Details](./images/06_wazuh_fim_document_details.png)` |
+| **7. SIEM Dashboard Health Check** | Wazuh Web UI confirming successful API connection, index pattern validation, and cluster statistics checks. | `![Wazuh Dashboard Health Check](./images/07_wazuh_dashboard_healthcheck.png)` |
 
 ---
 
@@ -139,3 +146,4 @@ net start wazuh
 1. **Troubleshooting Resilience:** Understanding how Linux package managers (`apt`/`dpkg`) handle locks and repository keys is essential when resolving deployment failures in production SIEM infrastructure.
 2. **Proactive File Integrity Monitoring:** Real-Time FIM is vital for compliance (NIST CSF / PCI-DSS) to catch ransomware file encryption, web shell drops, and unauthorized privilege escalation.
 3. **Log Correlation Power:** Centralizing agent logs into a single SIEM dashboard dramatically reduces Incident Response (IR) time compared to manual Windows Event Viewer inspection.
+
